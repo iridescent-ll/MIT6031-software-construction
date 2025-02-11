@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/MIT6031-software-construction.iml" filepath="$PROJECT_DIR$/.idea/MIT6031-software-construction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Problem_Set/ps0/ps0.iml" filepath="$PROJECT_DIR$/Problem_Set/ps0/ps0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Problem_Set/ps1/ps1.iml" filepath="$PROJECT_DIR$/Problem_Set/ps1/ps1.iml" />
+    </modules>
+  </component>
+</project>
