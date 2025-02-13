@@ -3,7 +3,10 @@
  */
 package twitter;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Filter consists of methods that filter a list of tweets for those matching a
@@ -27,12 +30,15 @@ public class Filter {
      *         in the same order as in the input list.
      */
     public static List<Tweet> writtenBy(List<Tweet> tweets, String username) {
-        throw new RuntimeException("not implemented");
+        if(tweets.isEmpty() || username.isEmpty()){
+            return Collections.emptyList();
+        }
+        return tweets.stream().filter(t -> t.getAuthor().equals(username)).collect(Collectors.toList());
     }
 
     /**
      * Find tweets that were sent during a particular timespan.
-     * 
+     *
      * @param tweets
      *            a list of tweets with distinct ids, not modified by this method.
      * @param timespan
@@ -41,7 +47,11 @@ public class Filter {
      *         in the same order as in the input list.
      */
     public static List<Tweet> inTimespan(List<Tweet> tweets, Timespan timespan) {
-        throw new RuntimeException("not implemented");
+//        throw new RuntimeException("not implemented");
+        if(tweets.isEmpty()){
+            return Collections.emptyList();
+        }
+        return tweets.stream().filter(tweet -> tweet.getTimestamp().isAfter(timespan.getStart()) && tweet.getTimestamp().isBefore(timespan.getEnd())).collect(Collectors.toList());
     }
 
     /**
@@ -60,7 +70,17 @@ public class Filter {
      *         same order as in the input list.
      */
     public static List<Tweet> containing(List<Tweet> tweets, List<String> words) {
-        throw new RuntimeException("not implemented");
+//        throw new RuntimeException("not implemented");
+        return tweets.stream().filter(isContaining(words)).collect(Collectors.toList());
+    }
+    private static Predicate<Tweet> isContaining(List<String> words){
+        return new Predicate<Tweet>() {
+            @Override
+            public boolean test(Tweet tweet) {
+                return words.stream()
+                        .anyMatch(word -> tweet.getText().toLowerCase().contains(word.toLowerCase()));
+            }
+        };
     }
 
 }
