@@ -3,9 +3,9 @@
  */
 package twitter;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * SocialNetwork provides methods that operate on a social network.
@@ -41,7 +41,34 @@ public class SocialNetwork {
      *         either authors or @-mentions in the list of tweets.
      */
     public static Map<String, Set<String>> guessFollowsGraph(List<Tweet> tweets) {
-        throw new RuntimeException("not implemented");
+//        throw new RuntimeException("not implemented");
+        List<String> authors = tweets.stream()
+                .map(tweet -> tweet.getAuthor())
+                .distinct()
+                .collect(Collectors.toList());
+        Map<String, Set<String>> guessFollows = authors.stream()
+                .map(author -> getAuthorsTweets(tweets, author))
+                .flatMap(map -> map.entrySet().stream())
+                .collect(Collectors.toMap(
+                        new Function<Map.Entry<String, List<Tweet>>, String>() {
+                            @Override
+                            public String apply(Map.Entry<String, List<Tweet>> stringListEntry) {
+                                return stringListEntry.getKey();
+                            }
+                        },
+                        new Function<Map.Entry<String, List<Tweet>>, Set<String>>() {
+                            @Override
+                            public Set<String> apply(Map.Entry<String, List<Tweet>> stringListEntry) {
+                                List<Tweet> tweets = stringListEntry.getValue();
+                                return Extract.getMentionedUsers(tweets);
+                            }
+                        }));
+        return guessFollows;
+
+    }
+    public static Map<String,List<Tweet>> getAuthorsTweets(List<Tweet> tweets,String userName){
+        List<Tweet> listByAuthor = Filter.writtenBy(tweets, userName);
+        return Collections.singletonMap(userName,listByAuthor);
     }
 
     /**

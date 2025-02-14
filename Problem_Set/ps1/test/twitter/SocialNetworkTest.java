@@ -5,16 +5,24 @@ package twitter;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.time.Instant;
+import java.util.*;
 
 import org.junit.Test;
 
 public class SocialNetworkTest {
 
+    private static final Instant d1 = Instant.parse("2016-02-17T10:00:00Z");
+    private static final Instant d2 = Instant.parse("2016-02-17T11:00:00Z");
+    private static final Instant d3 = Instant.now();
+    private static final Instant d4 = Instant.now().minusSeconds(2 * 60 * 60);
+
+    private static final Tweet tweet1 = new Tweet(1, "alyssa", "is it reasonable to talk about rivest so much?", d1);
+    private static final Tweet tweet2 = new Tweet(2, "bbitdiddle", "rivest talk in 30 minutes #hype qwer@mit.edu", d2);
+    private static final Tweet tweet3 = new Tweet(3, "ci", "rivest talk in 30 minutes #hype@alyssa", d3);
+    private static final Tweet tweet4 = new Tweet(4, "dylan", "test @LOGOS @logos", d4);
+    private static final Tweet tweet5 = new Tweet(5, "dylan", "test @daoxuan @logos", d4);
+    private static final Tweet tweet6 = new Tweet(6, "theQueenOfPain", "Defense of the Ancients", d4);
     /*
      * TODO: your testing strategies for these methods should go here.
      * See the ic03-testing exercise for examples of what a testing strategy comment looks like.
@@ -32,7 +40,23 @@ public class SocialNetworkTest {
         
         assertTrue("expected empty graph", followsGraph.isEmpty());
     }
-    
+
+    @Test
+    public void testGuessFollowsGraphNotEmpty() {
+        List<Tweet> tweets = Arrays.asList(tweet1, tweet2, tweet3, tweet4, tweet5);
+        Map<String, Set<String>> followsGraph = SocialNetwork.guessFollowsGraph(tweets);
+        Set<Map.Entry<String, Set<String>>> entries = followsGraph.entrySet();
+        Iterator<Map.Entry<String, Set<String>>> iterator = entries.iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String, Set<String>> followGraph = iterator.next();
+            System.out.println("Author: "+followGraph.getKey());
+            System.out.println("Follows: ");
+            for (String s : followGraph.getValue()) {
+                System.out.println(s);
+            }
+        }
+        assertFalse("expected empty graph", followsGraph.isEmpty());
+    }
     @Test
     public void testInfluencersEmpty() {
         Map<String, Set<String>> followsGraph = new HashMap<>();
