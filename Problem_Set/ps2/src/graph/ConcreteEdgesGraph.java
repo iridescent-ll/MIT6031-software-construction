@@ -14,9 +14,9 @@ import java.util.Set;
  * 
  * <p>PS2 instructions: you MUST use the provided rep.
  */
-public class ConcreteEdgesGraph implements Graph<String> {
+public class ConcreteEdgesGraph<L> implements Graph<L> {
     
-    private final Set<String> vertices = new HashSet<>();
+    private final Set<L> vertices = new HashSet<>();
     private final List<Edge> edges = new ArrayList<>();
     
     // Abstraction function:
@@ -30,59 +30,59 @@ public class ConcreteEdgesGraph implements Graph<String> {
     
     // TODO checkRep
     
-    @Override public boolean add(String vertex) {
+    @Override public boolean add(L vertex) {
         throw new RuntimeException("not implemented");
     }
     
-    @Override public int set(String source, String target, int weight) {
+    @Override public int set(L source, L target, int weight) {
         throw new RuntimeException("not implemented");
     }
     
-    @Override public boolean remove(String vertex) {
+    @Override public boolean remove(L vertex) {
         throw new RuntimeException("not implemented");
     }
     
-    @Override public Set<String> vertices() {
+    @Override public Set<L> vertices() {
         throw new RuntimeException("not implemented");
     }
     
-    @Override public Map<String, Integer> sources(String target) {
+    @Override public Map<L, Integer> sources(L target) {
         throw new RuntimeException("not implemented");
     }
     
-    @Override public Map<String, Integer> targets(String source) {
+    @Override public Map<L, Integer> targets(L source) {
         throw new RuntimeException("not implemented");
     }
     
-    // TODO toString()
-    
+    // TODO toL()
+
+    /**
+     * TODO specification
+     * Immutable.
+     * This class is internal to the rep of ConcreteEdgesGraph.
+     *
+     * <p>PS2 instructions: the specification and implementation of this class is
+     * up to you.
+     */
+    class Edge {
+
+        // TODO fields
+
+        // Abstraction function:
+        //   TODO
+        // Representation invariant:
+        //   TODO
+        // Safety from rep exposure:
+        //   TODO
+
+        // TODO constructor
+
+        // TODO checkRep
+
+        // TODO methods
+
+        // TODO toL()
+
+    }
 }
 
-/**
- * TODO specification
- * Immutable.
- * This class is internal to the rep of ConcreteEdgesGraph.
- * 
- * <p>PS2 instructions: the specification and implementation of this class is
- * up to you.
- */
-class Edge {
-    
-    // TODO fields
-    
-    // Abstraction function:
-    //   TODO
-    // Representation invariant:
-    //   TODO
-    // Safety from rep exposure:
-    //   TODO
-    
-    // TODO constructor
-    
-    // TODO checkRep
-    
-    // TODO methods
-    
-    // TODO toString()
-    
-}
