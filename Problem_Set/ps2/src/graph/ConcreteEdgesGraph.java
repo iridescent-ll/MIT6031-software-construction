@@ -87,6 +87,10 @@ public class ConcreteEdgesGraph<L> implements Graph<L> {
     }
     
     // TODO toL()
+    @Override
+    public String toString(){
+        return edges.stream().map(Edge::toString).collect(Collectors.joining(", "));
+    }
 
     /**
      * TODO specification
@@ -149,6 +153,11 @@ public class ConcreteEdgesGraph<L> implements Graph<L> {
             return this.weight;
         }
         // TODO toL()
+        @Override
+        public String toString(){
+            return source + "--" + weight +"-->" + target;
+        }
+
 
     }
 }

@@ -20,8 +20,8 @@ public class ConcreteEdgesGraphTest extends GraphInstanceTest {
     /*
      * Provide a ConcreteEdgesGraph for tests in GraphInstanceTest.
      */
-    @Override public Graph<String> emptyInstance() {
-        return new ConcreteEdgesGraph();
+    @Override public <L> Graph<L> emptyInstance() {
+        return new ConcreteEdgesGraph<L>();
     }
     
     /*
@@ -32,6 +32,17 @@ public class ConcreteEdgesGraphTest extends GraphInstanceTest {
     //   TODO
     
     // TODO tests for ConcreteEdgesGraph.toString()
+    @Test
+    public void testToString() {
+        Graph<String> g = emptyInstance();
+        g.add("1");
+        g.set("1", "2", 1);
+        g.set("2", "3", 2);
+        g.set("1", "3", 2);
+        g.set("4", "5", 4);
+        System.out.println(g.toString());
+
+    }
     
     /*
      * Testing Edge...
