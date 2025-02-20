@@ -16,14 +16,13 @@ import org.junit.Test;
  * Tests against the Graph spec should be in GraphInstanceTest.
  */
 public class ConcreteEdgesGraphTest extends GraphInstanceTest {
-    
     /*
      * Provide a ConcreteEdgesGraph for tests in GraphInstanceTest.
      */
     @Override public <L> Graph<L> emptyInstance() {
         return new ConcreteEdgesGraph<L>();
     }
-    
+
     /*
      * Testing ConcreteEdgesGraph...
      */
@@ -41,7 +40,15 @@ public class ConcreteEdgesGraphTest extends GraphInstanceTest {
         g.set("1", "3", 2);
         g.set("4", "5", 4);
         System.out.println(g.toString());
+        assertEquals("1--1-->2, 2--2-->3, 1--2-->3, 4--4-->5", g.toString());
 
+    }
+    @Test
+    public void testIntegerToString(){
+        Graph<Integer> g = emptyInstance();
+        g.add(1);
+        g.set(1,3,2);
+        System.out.println(g);
     }
     
     /*
@@ -49,8 +56,22 @@ public class ConcreteEdgesGraphTest extends GraphInstanceTest {
      */
     
     // Testing strategy for Edge
-    //   TODO
-    
+    @Test
+    public void testEdgeObservers() {
+        Graph<String> graph = emptyInstance();
+        ConcreteEdgesGraph<String> c = (ConcreteEdgesGraph<String>) graph;
+        ConcreteEdgesGraph.Edge edge = c.new Edge("a","b",3);
+        assertEquals(3, edge.getWeight());
+        assertEquals("a", edge.getSource());
+        assertEquals("b", edge.getTarget());
+    }
+//
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidEdge() {
+        Graph<String> graph = emptyInstance();
+        ConcreteEdgesGraph.Edge edge =  ((ConcreteEdgesGraph<String>) graph).new Edge("aa", "bb", -2);
+    }
+
     // TODO tests for operations of Edge
     
 }

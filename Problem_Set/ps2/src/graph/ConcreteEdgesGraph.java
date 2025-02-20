@@ -16,7 +16,6 @@ public class ConcreteEdgesGraph<L> implements Graph<L> {
     
     private final Set<L> vertices = new HashSet<>();
     private final List<Edge> edges = new ArrayList<>();
-
     // Abstraction function:
     //
     // Representation invariant:
